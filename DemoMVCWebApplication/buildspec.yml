@@ -6,7 +6,7 @@ phases:
             dotnet: 5.0
     build:
         commands:
-            - dotnet build -c Release DemoMVCWebApplication.csproj
+            - dotnet build -c Release ../DemoMVCWebApplication.csproj
             - dotnet test -c Release  ../DemoMVCWebApplicationTest/DemoMVCWebApplicationTest.csproj --logger trx --results-directory ./testresults
                                          
 reports:
