@@ -9,7 +9,6 @@ phases:
         - echo Restore started on `date`
         - echo loggin into Amazon ECR...
         - aws --version
-        - (Get-ECRLoginCommand).Password | docker login --username AWS --password-stdin 306703647305.dkr.ecr.us-west-2.amazonaws.com
         - REPOSITORY_URI= 306703647305.dkr.ecr.us-west-2.amazonaws.com/demomvcwebapplicationrepository
         - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
         - IMAGE_TAG=build-$(echo $CODEBUILD_BUILD_ID | awk -F":" '{print $2}')
