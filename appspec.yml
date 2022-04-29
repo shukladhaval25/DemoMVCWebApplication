@@ -3,7 +3,7 @@ os: linux
 files:
   - source: DemoMVCWebApplication/bin/Release/netcoreapp3.1/
     destination: /home/ec2-user/aspnetcoreapp
-  - source: AspNetCoreWebApplication/wwwroot/
+  - source: DemoMVCWebApplication/wwwroot/
     destination: /home/ec2-user/aspnetcoreapp/wwwroot
   - source: scripts/virtualhost.conf
     destination: /home/ec2-user/aspnetcoreapp
