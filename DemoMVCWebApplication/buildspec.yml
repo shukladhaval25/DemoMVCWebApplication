@@ -17,8 +17,6 @@ phases:
      
             - dotnet publish -c release -o ./build_output DemoMVCWebApplication/DemoMVCWebApplication.csproj
             - dotnet publish -c release -o ./test_output DemoMVCWebApplicationTest/DemoMVCWebApplicationTest.csproj
-            - dotnet vstest DemoMVCWebApplicationTest\bin\Release\netcoreapp3.1\DemoMVCWebApplicationTest.dll
-
 
     post_build:
         commands:
