@@ -12,8 +12,8 @@ phases:
         commands:
             - dotnet build -c Release DemoMVCWebApplication/DemoMVCWebApplication.csproj
             - dotnet test -c Release  DemoMVCWebApplicationTest/DemoMVCWebApplicationTest.csproj --logger trx --results-directory ./testresults
-            - docker build -t $REPOSITORY_URI:LATEST
-            - docker tag $REPOSITORY_URI:LATEST 
+            #- docker build -t $REPOSITORY_URI:LATEST
+            #- docker tag $REPOSITORY_URI:LATEST 
      
             - dotnet publish -c release -o ./build_output DemoMVCWebApplication/DemoMVCWebApplication.csproj
             - dotnet publish -c release -o ./test_output DemoMVCWebApplicationTest/DemoMVCWebApplicationTest.csproj
