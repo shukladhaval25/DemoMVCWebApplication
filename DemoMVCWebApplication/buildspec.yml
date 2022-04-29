@@ -26,8 +26,8 @@ phases:
 artifacts:
   files:
     - template.yml
-    - AspNetCoreWebApplication/bin/**/*
-    - AspNetCoreWebApplication/wwwroot/**/*
+    - DemoMVCWebApplication/bin/**/*
+    - DemoMVCWebApplication/wwwroot/**/*
     - scripts/**/*
     - appspec.yml
     - requirements.txt
