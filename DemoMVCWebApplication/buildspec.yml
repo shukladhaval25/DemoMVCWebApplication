@@ -26,8 +26,6 @@ phases:
             - docker push $REPOSITORY_URI:LATEST
             - docker push $REPOSITORY_URI:$IMAGE_TAG
             - echo Writing image defi
-    arifacts:
-        files: imagedefinitions.json
 reports:
     DotnetTestExamples:
         file-format: VisualStudioTrx
