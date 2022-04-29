@@ -3,15 +3,11 @@ version: 0.2
 phases:
     install:
         runtime-versions:
-            dotnet: 5.0
+             dotnet: 3.1
     pre_build:
         commands:
-        - echo Restore started on `date`
-        - echo loggin into Amazon ECR...
-        - aws --version
-        - REPOSITORY_URI= 306703647305.dkr.ecr.us-west-2.amazonaws.com/demomvcwebapplicationrepository
-        - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
-        - IMAGE_TAG=build-$(echo $CODEBUILD_BUILD_ID | awk -F":" '{print $2}')
+            - dotnet restore DemoMVCWebApplication/DemoMVCWebApplication.csproj
+            - dotnet restore DemoMVCWebApplicationTest/DemoMVCWebApplicationTest.csproj
     build:
         commands:
             - dotnet build -c Release DemoMVCWebApplication/DemoMVCWebApplication.csproj
@@ -19,15 +15,22 @@ phases:
             - docker build -t $REPOSITORY_URI:LATEST
             - docker tag $REPOSITORY_URI:LATEST 
      
+            - dotnet publish -c release -o ./build_output DemoMVCWebApplication/DemoMVCWebApplication.csproj
+            - dotnet publish -c release -o ./test_output DemoMVCWebApplicationTest/DemoMVCWebApplicationTest.csproj
+            - dotnet vstest DemoMVCWebApplicationTest\bin\Release\netcoreapp3.1\DemoMVCWebApplicationTest.dll
+
+
     post_build:
         commands:
-            - echo Publish started on `date`
-            - docker push $REPOSITORY_URI:LATEST
-            - docker push $REPOSITORY_URI:$IMAGE_TAG
-            - echo Writing image defi
-reports:
-    DotnetTestExamples:
-        file-format: VisualStudioTrx
-        files:
-            - '**/*'
-        base-directory: './testresults'
+            # Do not remove this statement. This command is required for AWS CodeStar projects.
+            # Update the AWS Partition, AWS Region, account ID and project ID in the project ARN in template-configuration.json file so AWS CloudFormation can tag project resources.
+           - sed -i.bak 's/\$PARTITION\$/'${PARTITION}'/g;s/\$AWS_REGION\$/'${AWS_REGION}'/g;s/\$ACCOUNT_ID\$/'${ACCOUNT_ID}'/g;s/\$PROJECT_ID\$/'${PROJECT_ID}'/g' template-configuration.json
+artifacts:
+  files:
+    - template.yml
+    - AspNetCoreWebApplication/bin/**/*
+    - AspNetCoreWebApplication/wwwroot/**/*
+    - scripts/**/*
+    - appspec.yml
+    - requirements.txt
+    - template-configuration.json
