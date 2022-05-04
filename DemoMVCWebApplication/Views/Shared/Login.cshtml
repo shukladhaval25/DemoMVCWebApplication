@@ -1,0 +1,38 @@
+@model AuthenticationViewModel
+@{
+    ViewData["Title"] = "Authentication";
+}
+<h1 class="text">Authentication.</h1>
+<h2 class="text">Enter your username and password</h2>
+
+<code>@Model.username</code>
+<code>@Model.password</code>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head id="Head1" runat="server">
+    <title>Login Form without Help</title>
+</head>
+<body>
+    <div>
+
+    <form method="post" action="/Authentication/Login">
+    
+    <label for="userName">User Name:</label>
+    <br />
+    <input name="username" value = @Model.username />
+    
+    <br /><br />
+    
+    <label for="password">Password:</label>
+    <br />
+    <input name="password" type="password" value=@Model.password />
+    
+    <br /><br />
+    <input type="submit" value="Log In" />
+    
+    </form>
+    
+    </div>
+</body>
+</html>
